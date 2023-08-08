@@ -214,15 +214,8 @@ complete -F __start_kubectl k
 
 <a name="install-helm"></a>
 
-### Debian
-
 ```sh
-sudo apt update
-sudo apt install -y curl wget apt-transport-https
-curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt update
-sudo apt-get install -y helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 helm version
 ```
 
@@ -247,6 +240,28 @@ helm repo update
 
 # remove repositories
 helm repo remove bitnami  
+```
+
+### Helm - Management Packages
+
+```sh
+# list available packages
+helm list
+helm list -n silvestrini
+helm list -A
+
+# install package
+helm install silvestrini-phpmyadmin bitnami/phpmyadmin
+helm upgrade --install silvestrini-phpmyadmin bitnami/phpmyadmin
+
+# install package in specified namespace
+helm install --namespace silvestrini silvestrini-phpmyadmin bitnami/phpmyadmin
+
+# upgrade packages
+helm upgrade silvestrini-phpmyadmin bitnami/phpmyadmin
+
+# uninstall package
+helm uninstall silvestrini-phpmyadmin
 ```
 
 <p align="right">(<a href="#helm-charts">back to helm-charts</a>)</p>
