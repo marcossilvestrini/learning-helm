@@ -233,8 +233,20 @@ helm version
 
 <a name="helm-charts"></a>
 
-```sh
+### Helm - Management Repositories
 
+```sh
+# list available repositories
+helm repo list
+
+# add repositories
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+# update repositories
+helm repo update
+
+# remove repositories
+helm repo remove bitnami  
 ```
 
 <p align="right">(<a href="#helm-charts">back to helm-charts</a>)</p>
@@ -271,6 +283,7 @@ Project Link: [https://github.com/marcossilvestrini/learning-helm](https://githu
 ## Acknowledgments
 
 * [Helm Oficial Doc](https://helm.sh/docs/topics/charts/)
+* [Artifact Hub](https://artifacthub.io/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
