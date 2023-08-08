@@ -9,7 +9,7 @@
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-# LEARNING helm
+# LEARNING HELM
 
 ![helm](images/helm.png)
 
@@ -214,8 +214,16 @@ complete -F __start_kubectl k
 
 <a name="install-helm"></a>
 
-```sh
+### Debian
 
+```sh
+sudo apt update
+sudo apt install -y curl wget apt-transport-https
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt update
+sudo apt-get install -y helm
+helm version
 ```
 
 <p align="right">(<a href="#install-helm">back to install-helm</a>)</p>
