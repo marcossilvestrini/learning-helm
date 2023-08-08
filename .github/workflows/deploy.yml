@@ -1,0 +1,51 @@
+name: generate-index
+
+on: [push, pull_request]
+
+jobs:
+  generate_curriculum:
+    name: generate-index
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Converts Markdown to HTML
+        uses: jaywcjlove/markdown-to-html-cli@main
+        with:
+          source: README.md
+          output: index.html
+          github-corners: https://github.com/marcossilvestrini/learning-helm
+          favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>
+
+      - name: HTML to PDF
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: ./index.html
+          outputFile: ./learning-helm.pdf          
+          pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'          
+      - run: sudo chmod 777 learning-helm.pdf
+      - run: /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com"
+      - run: /usr/bin/git config --global user.name "marcossilvestrini"
+      - run: /usr/bin/git add .
+      - run: /usr/bin/git commit -m "Deploy pdf and html files"
+      - run: /usr/bin/git push origin main
+      
+      - name: Upload artifacts        
+        uses: actions/upload-artifact@v3
+        with:
+          name: learning-helm
+          path: ./learning-helm.pdf
+
+      # - name: Download Artefacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: right-resume          
+      
