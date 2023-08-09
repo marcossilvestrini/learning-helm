@@ -13,7 +13,6 @@
 
 ![helm](images/helm.png)
 
-
 <p align="center">
 <strong>Explore the docs »</strong></a><br />
     <a href="https://github.com/marcossilvestrini/learning-helm/">Main Page</a>
@@ -222,11 +221,9 @@ helm version
 <p align="right">(<a href="#install-helm">back to install-helm</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Helm Charts
+## Helm Repositories
 
-<a name="helm-charts"></a>
-
-### Helm - Management Repositories
+<a name="helm-repo"></a>
 
 ```sh
 # list available repositories
@@ -242,7 +239,12 @@ helm repo update
 helm repo remove bitnami  
 ```
 
-### Helm - Management Packages
+<p align="right">(<a href="#helm-repo">back to helm-repo</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Helm Packages
+
+<a name="helm-packages"></a>
 
 ```sh
 # list available packages
@@ -264,7 +266,43 @@ helm upgrade silvestrini-phpmyadmin bitnami/phpmyadmin
 helm uninstall silvestrini-phpmyadmin
 ```
 
-<p align="right">(<a href="#helm-charts">back to helm-charts</a>)</p>
+<p align="right">(<a href="#helm-packages">back to helm-packages</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Helm Charts
+
+<a name="helm-charts"></a>
+
+### Chart structure
+
+```yaml
+wordpress/
+  Chart.yaml          # A YAML file containing information about the chart
+  LICENSE             # OPTIONAL: A plain text file containing the license for the chart
+  README.md           # OPTIONAL: A human-readable README file
+  values.yaml         # The default configuration values for this chart
+  values.schema.json  # OPTIONAL: A JSON Schema for imposing a structure on the values.yaml file
+  charts/             # A directory containing any charts upon which this chart depends.
+  crds/               # Custom Resource Definitions
+  templates/          # A directory of templates that, when combined with values,
+                      # will generate valid Kubernetes manifest files.
+  templates/NOTES.txt # OPTIONAL: A plain text file containing short usage notes
+  ```
+
+### Helm Chart - Commands
+
+```sh
+# generate chart
+helm create mychart
+
+# get chart information
+helm get manifest mychart
+
+# remove chart
+helm uninstall mychart-v1
+```
+
+<p align="right">(<a href="#helm-packages">back to helm-packages</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
