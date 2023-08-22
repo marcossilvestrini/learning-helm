@@ -298,6 +298,15 @@ helm create mychart
 # get chart information
 helm get manifest mychart
 
+# Install chart
+helm install mychart-v1 ./examples/mychart
+
+# Simulate \ Debug install
+helm install --debug --dry-run mychart-v3 ./examples/mychart
+
+# get chart resources \ manifest
+helm get manifest mychart-v1
+
 # remove chart
 helm uninstall mychart-v1
 ```
