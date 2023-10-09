@@ -4,3 +4,8 @@ metadata:
  name: {{ .Release.Name }}-configmap
 data:
  myvalue: "Hello World"
+ stars: {{.Values.stars}} 
+ beer: {{.Values.foods.drink | quote |upper}}
+ beer: {{.Values.foods.drink.beer | quote}}
+ juice: {{.Values.foods.drink.juice | repeat 3 | quote}}
+
