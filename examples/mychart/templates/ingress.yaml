@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:  
+  name: {{ .Release.Name }}-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  
+spec:
+  ingressClassName: {{ .Values.ingress.className}}
+  rules:      
+     {{- if eq .Values.ingress.label "monitoring"  }}
+    - host: {{ .Release.Name }}-prometheus.skynet.com.br        
+    {{- end }}
+      http:        
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test
+                port:
+                  number: 80
+{{- end }}

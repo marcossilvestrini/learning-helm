@@ -1,11 +1,19 @@
+{{- if .Values.configmap.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
  name: {{ .Release.Name }}-configmap
 data:
- myvalue: "Hello World"
- stars: {{.Values.stars}} 
- beer: {{.Values.foods.drink | quote |upper}}
- beer: {{.Values.foods.drink.beer | quote}}
- juice: {{.Values.foods.drink.juice | repeat 3 | quote}}
-
+ myvalue: "Hello World" 
+ stars: {{.Values.configmap.stars}} 
+ juice: {{.Values.configmap.foods.drink.juice | default "stramberry" |quote |upper}}
+ beer: {{.Values.configmap.foods.drink.beer | quote}}
+ cake: {{.Values.configmap.foods.cake | repeat 3 | quote}}
+ {{- if and (gt (int .Values.configmap.stars) 3)  (eq .Values.configmap.foods.drink.beer "heineken") }}
+ cup: "heineken_premium" 
+ {{- else if and (eq (int .Values.configmap.stars) 3) (eq .Values.configmap.foods.drink.beer "heineken") }}
+ cup: "heineken_standart"  
+ {{- else }}  
+ cup: "simple"
+ {{- end }}
+ {{- end }}

@@ -1,6 +1,21 @@
-stars: 5
-foods:
-  drink: 
-    beer: haineken
-    juice: limon
-  cake: orange
+configmap:  
+  enabled: true
+  stars: 3
+  foods:    
+    drink:       
+      beer: heineken
+      #juice: oranje
+    cake: apple  
+
+ingress:
+  enabled: false
+  className: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  label: monitoring
+  hosts:
+    - host: ''
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
