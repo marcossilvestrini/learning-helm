@@ -1,8 +1,7 @@
 <h1><a name="readme-top"></a></h1>
 
-[![Release](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml)
 [![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
-[![generate-index](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml)
+
 
 [![MIT License][license-shield]][license-url]
 [![Forks][forks-shield]][forks-url]
@@ -367,3 +366,4 @@ Project Link: [https://github.com/marcossilvestrini/learning-helm](https://githu
 [license-url]: https://github.com/marcossilvestrini/learning-helm/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/marcossilvestrini
+
