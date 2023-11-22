@@ -37,8 +37,8 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
-          htmlPath: './index.html'
-          pdfName: './learning-helm.pdf'     
+          htmlPath: 'index.html'
+          pdfName: 'learning-helm'     
       
       - run: sudo chmod 777 learning-helm.pdf
       - run: /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com"
