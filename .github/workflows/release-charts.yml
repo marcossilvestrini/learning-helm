@@ -25,9 +25,10 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v3      
+        env:          
+          GITHUB_TOKEN: ${{ secrets.PAT }}
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
-        env:          
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          CR_TOKEN: "{{ $GITHUB_TOKEN }}"
+        env:                    
+          CR_TOKEN: ${{ secrets.PAT }}
