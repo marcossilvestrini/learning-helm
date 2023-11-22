@@ -37,16 +37,13 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
-          htmlPath: 'index.html'
-          pdfName: 'learning-helm'    
-
-      - name: Download Artefacts
-        uses: actions/download-artifact@v3
-        with:
-          name: learning-helm     
-
+          htmlPath: ./index.html
+          pdfName: ./learning-helm
+      
       - name: Debug Convert HTML to PDF
-        run: ls -lt 
+        run: |
+          ls -lt
+          ls -lt /github/workspace/dist/learning-helm.pdf
       
       # - name: Commit and Push
       #   run: |
