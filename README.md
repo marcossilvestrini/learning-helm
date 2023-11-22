@@ -1,6 +1,7 @@
 <h1><a name="readme-top"></a></h1>
 
 [![Release](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml)
+[![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
 
 [![MIT License][license-shield]][license-url]
 [![Forks][forks-shield]][forks-url]
