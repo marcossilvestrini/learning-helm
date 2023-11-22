@@ -28,12 +28,17 @@ jobs:
       - name: Debug Converts Markdown to HTML
         run: ls -lt 
 
+      # - name: Convert HTML to PDF
+      #   uses: fifsky/html-to-pdf-action@master
+      #   with:
+      #     htmlFile: ./index.html
+      #     outputFile: ./learning-helm.pdf          
+      #     pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'     
       - name: Convert HTML to PDF
-        uses: fifsky/html-to-pdf-action@master
+        uses: markwilson/html2pdf@v1.0
         with:
-          htmlFile: ./index.html
-          outputFile: ./learning-helm.pdf          
-          pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'          
+          htmlPath: 'index.html'
+          pdfName: 'learning-helm.pdf'     
       
       - run: sudo chmod 777 learning-helm.pdf
       - run: /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com"
