@@ -34,6 +34,7 @@ jobs:
           htmlFile: ./index.html
           outputFile: ./learning-helm.pdf          
           pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'          
+      
       - run: sudo chmod 777 learning-helm.pdf
       - run: /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com"
       - run: /usr/bin/git config --global user.name "marcossilvestrini"
