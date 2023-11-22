@@ -1,10 +1,10 @@
-name: generate-index
+name: Generate HTML
 
 on: [push, pull_request]
 
 jobs:
-  generate_curriculum:
-    name: generate-index
+  generate_html:
+    name: generate-html
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -25,7 +25,7 @@ jobs:
           github-corners: https://github.com/marcossilvestrini/learning-helm
           favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>
 
-      - name: HTML to PDF
+      - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
         with:
           htmlFile: ./index.html
