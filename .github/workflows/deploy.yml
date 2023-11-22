@@ -37,13 +37,12 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
-          htmlPath: ./index.html
-          pdfName: ./learning-helm
+          htmlPath: 'index.html'
+          pdfName: 'learning-helm'
       
       - name: Debug Convert HTML to PDF
         run: |
-          ls -lt
-          ls -lt /github/workspace/dist/learning-helm.pdf
+          find dist/ 
       
       # - name: Commit and Push
       #   run: |
