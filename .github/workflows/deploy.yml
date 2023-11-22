@@ -36,12 +36,26 @@ jobs:
       #     pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'     
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
-        # with:
-        #   htmlPath: 'index.html'
-        #   pdfName: 'learning-helm'     
+        with:
+          htmlPath: 'index.html'
+          pdfName: 'learning-helm'    
+
+      - name: Download Artefacts
+        uses: actions/download-artifact@v3
+        with:
+          name: learning-helm     
 
       - name: Debug Convert HTML to PDF
         run: ls -lt 
+      
+      # - name: Commit and Push
+      #   run: |
+      #     sudo chmod 777 learning-helm.pdf &&
+      #     /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com" &&
+      #     /usr/bin/git config --global user.name "marcossilvestrini" &&
+      #     /usr/bin/git add . &&
+      #     /usr/bin/git commit -m "Deploy pdf and html files" &&
+      #     /usr/bin/git push origin main
       
       # - run: sudo chmod 777 learning-helm.pdf
       # - run: /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com"
