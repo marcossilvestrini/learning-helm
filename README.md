@@ -2,6 +2,7 @@
 
 [![Release](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release.yml)
 [![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
+[![generate-index](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml)
 
 [![MIT License][license-shield]][license-url]
 [![Forks][forks-shield]][forks-url]
