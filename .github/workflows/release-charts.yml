@@ -1,9 +1,6 @@
 name: Release Charts
 
 on:
-  # push:
-  #   branches:
-  #     - main
   workflow_run:
     workflows: ["Deploy to gh-pages"]
     types:
@@ -17,9 +14,6 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Generate HTML and Deploy to gh-pages to complete
-        run: echo "Waiting Generate HTML and Deploy to gh-pages to complete"
-
       - name: Checkout
         uses: actions/checkout@v3
         with:

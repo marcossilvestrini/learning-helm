@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait for Generate HTML to complete
-        run: echo "Waiting Generate HTML to complete"
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -21,7 +18,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          
+
           # Cria a branch gh-pages no repositório remoto se não existir
           git push origin --delete gh-pages || true
           git checkout --orphan gh-pages
@@ -31,10 +28,20 @@ jobs:
           git push -u origin gh-pages
 
           # Volta para a branch main
-          git checkout main  
+          git checkout main
 
       - name: Push to gh-pages
         run: |
           git checkout gh-pages
           git reset --hard origin/main
           git push -f origin gh-pages
+
+      - name: Configure GitHub Pages
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          curl -X POST \
+            -H "Authorization: token $GH_PAT" \
+            -H "Accept: application/vnd.github.switcheroo-preview+json" \
+            https://api.github.com/repos/${{ github.repository }}/pages \
+            -d '{"source": {"branch": "gh-pages", "path": "/"}}'
