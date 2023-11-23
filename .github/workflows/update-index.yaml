@@ -1,12 +1,13 @@
-name: Update README
+name: Update index.yaml
 
 on:
   workflow_run:
-    workflows: ["Update index.yaml"]
+    workflows: ["Release Charts"]
     types:
       - completed
+
 jobs:
-  update-readme:
+  update-index:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +20,10 @@ jobs:
           current_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
           echo "::set-output name=current_chart_version::$current_version"
 
-      - name: Get previous chart version
+      - name: Get previous chart version from index.yaml
         id: previous-chart-version
         run: |
-          previous_version=$(grep -oP 'version: \K.*' charts/app-silvestrini/README.md)
+          previous_version=$(yq eval '.entries.app-silvestrini[0].version' index.yaml)
           echo "::set-output name=previous_chart_version::$previous_version"
 
       - name: Compare chart versions
@@ -36,12 +37,13 @@ jobs:
             echo "::set-output name=chart_version_changed::false"
           fi
 
-      - name: Update README
+      - name: Update index.yaml
         if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/version: .*/version: $chart_version/" charts/app-silvestrini/README.md
+          sed -i "s/version: $previous_version/version: $chart_version/" index.yaml
+          sed -i "s/app-silvestrini-$previous_version/app-silvestrini-$chart_version/" index.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git commit -am "Update chart version in README"
+          git commit -am "Update chart version in index.yaml"
           git push origin main
