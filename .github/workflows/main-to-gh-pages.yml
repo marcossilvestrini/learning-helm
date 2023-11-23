@@ -38,7 +38,7 @@ jobs:
 
       - name: Configure GitHub Pages
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.PAT }}
         run: |
           curl -X POST \
             -H "Authorization: token $GH_PAT" \
