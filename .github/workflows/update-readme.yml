@@ -1,0 +1,29 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get chart version
+        id: chart-version
+        run: |
+          chart_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
+          echo "::set-output name=chart_version::$chart_version"
+        
+      - name: Update README
+        run: |
+          chart_version="${{ steps.chart-version.outputs.chart_version }}"
+          sed -i "s/version: .*/version: $chart_version/" charts/app-silvestrini/README.md
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -m "Update chart version in README" README.md
+          git push origin main
