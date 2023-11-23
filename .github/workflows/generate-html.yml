@@ -2,6 +2,7 @@ name: Generate HTML
 
 on: [push, pull_request]
 
+
 jobs:
   generate_html:
     name: generate-html
