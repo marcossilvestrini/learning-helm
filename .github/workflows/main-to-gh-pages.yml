@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,14 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create or update gh-pages branch
+      - name: Create gh-pages branch if not exists
         run: |
-          git config user.name "marcos.silvestrini"
-          git config user.email "marcos.silvestrini@gmail.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git fetch origin gh-pages:gh-pages
           git checkout gh-pages || git checkout --orphan gh-pages
           git reset --hard
           git clean -ffxd
           git fetch origin main:main
-          git rebase main
+          git rebase main || true
           git commit --allow-empty -m "Initial commit"  # Adicione um commit vazio
           git push -f origin gh-pages
