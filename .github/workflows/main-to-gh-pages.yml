@@ -31,12 +31,7 @@ jobs:
           git push -u origin gh-pages
 
           # Volta para a branch main
-          git checkout main
-
-      - name: Fetch and rebase main
-        run: |
-          git fetch origin main:main
-          git rebase main || true
+          git checkout main  
 
       - name: Push to gh-pages
         run: |
