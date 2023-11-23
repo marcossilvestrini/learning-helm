@@ -1,0 +1,24 @@
+name: Deploy to gh-pages
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create or update gh-pages branch
+        run: |
+          git config user.name "marcos.silvestrini"
+          git config user.email "marcos.silvestrini@gmail.com"
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git reset --hard
+          git clean -ffxd
+          git fetch origin main:main
+          git rebase main
+          git push -f origin gh-pages
