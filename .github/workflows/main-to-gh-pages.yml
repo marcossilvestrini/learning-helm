@@ -1,15 +1,19 @@
 name: Deploy to gh-pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Generate HTML"]
+    types:
+      - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Wait for Generate HTML to complete
+        run: echo "Waiting Generate HTML to complete"
+
       - name: Checkout code
         uses: actions/checkout@v2
 
