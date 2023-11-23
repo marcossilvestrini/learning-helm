@@ -13,17 +13,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get chart version
-        id: chart-version
+      - name: Get current chart version
+        id: current-chart-version
         run: |
-          chart_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
-          echo "::set-output name=chart_version::$chart_version"
-        
+          current_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
+          echo "::set-output name=current_chart_version::$current_version"
+
+      - name: Get previous chart version
+        id: previous-chart-version
+        run: |
+          previous_version=$(grep -oP 'version: \K.*' charts/app-silvestrini/README.md)
+          echo "::set-output name=previous_chart_version::$previous_version"
+
+      - name: Compare chart versions
+        id: compare-versions
+        run: |
+          current_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
+          previous_version="${{ steps.previous-chart-version.outputs.previous_chart_version }}"
+          if [ "$current_version" != "$previous_version" ]; then
+            echo "::set-output name=chart_version_changed::true"
+          else
+            echo "::set-output name=chart_version_changed::false"
+          fi
+
       - name: Update README
+        if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
-          chart_version="${{ steps.chart-version.outputs.chart_version }}"
+          chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           sed -i "s/version: .*/version: $chart_version/" charts/app-silvestrini/README.md
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git commit -m "Update chart version in README" README.md
+          git commit -am "Update chart version in README"
           git push origin main

@@ -1,8 +1,9 @@
 <h1><a name="readme-top"></a></h1>
 
-[![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
+[![Generate HTML](https://github.com/marcossilvestrini/learning-helm/actions/workflows/generate-html.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/generate-html.yml)
 [![pages-build-deployment](https://github.com/marcossilvestrini/learning-helm/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/pages/pages-build-deployment)
-[![Generate HTML](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/deploy.yml)
+[![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
+[![Update README](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-readme.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-readme.yml)
 
 
 [![MIT License][license-shield]][license-url]
