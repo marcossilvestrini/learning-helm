@@ -15,10 +15,10 @@ jobs:
 
       - name: Create gh-pages branch if not exists
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "marcos.silvestrini"
+          git config user.email "marcos.silvestrini@gmail.com"
           git fetch origin gh-pages:gh-pages
-          git checkout gh-pages || git checkout --orphan gh-pages
+          git checkout gh-pages || (git checkout --orphan gh-pages && git push -u origin gh-pages)
           git reset --hard
           git clean -ffxd
           git fetch origin main:main
