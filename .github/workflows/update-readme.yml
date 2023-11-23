@@ -1,10 +1,10 @@
 name: Update README
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_run:
+    workflows: ["Release Charts"]
+    types:
+      - completed
 jobs:
   update-readme:
     runs-on: ubuntu-latest
