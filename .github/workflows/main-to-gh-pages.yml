@@ -21,4 +21,5 @@ jobs:
           git clean -ffxd
           git fetch origin main:main
           git rebase main
+          git commit --allow-empty -m "Initial commit"  # Adicione um commit vazio
           git push -f origin gh-pages
