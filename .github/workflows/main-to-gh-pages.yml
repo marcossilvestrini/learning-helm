@@ -13,15 +13,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create gh-pages branch if not exists
+      - name: Create or update gh-pages branch
         run: |
-          git config user.name "marcos.silvestrini"
-          git config user.email "marcos.silvestrini@gmail.com"
-          git fetch origin gh-pages:gh-pages
-          git checkout gh-pages || (git checkout --orphan gh-pages && git push -u origin gh-pages)
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Cria a branch gh-pages no repositório remoto se não existir
+          git push origin --delete gh-pages || true
+          git checkout --orphan gh-pages
           git reset --hard
           git clean -ffxd
+          git commit --allow-empty -m "Initial commit"
+          git push -u origin gh-pages
+
+          # Volta para a branch main
+          git checkout main
+
+      - name: Fetch and rebase main
+        run: |
           git fetch origin main:main
           git rebase main || true
-          git commit --allow-empty -m "Initial commit"  # Adicione um commit vazio
+
+      - name: Push to gh-pages
+        run: |
+          git checkout gh-pages
+          git reset --hard origin/main
           git push -f origin gh-pages
