@@ -38,14 +38,10 @@ jobs:
 
       - name: Configure GitHub Pages
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_PAT: ${{ secrets.PAT }}
         run: |
-          # Define as configurações desejadas
-          GH_PAGES_CONFIG='{"source": {"branch": "gh-pages", "path": "/"}}'
-  
-          # Use a API para configurar o GitHub Pages
-          curl -X PUT \
-            -H "Authorization: token $GH_TOKEN" \
+          curl -X POST \
+            -H "Authorization: token $GH_PAT" \
             -H "Accept: application/vnd.github.switcheroo-preview+json" \
-            -d "$GH_PAGES_CONFIG" \
-            "https://api.github.com/repos/${{ github.repository }}/pages"
+            https://api.github.com/repos/${{ github.repository }}/pages \
+            -d '{"source": {"branch": "gh-pages", "path": "/"}}'
