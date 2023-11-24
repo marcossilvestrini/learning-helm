@@ -27,8 +27,8 @@ jobs:
       - name: Update index.yaml
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/CHART_VERSION/$chart_version/g" templates-index.yaml/template-app-silvestrini.index.yaml
-          cp templates-index.yaml/template-app-silvestrini.index.yaml index.yaml
+          sed -i "s/CHART_VERSION/$chart_version/g" templates-index.yaml/app-silvestrini.index.yaml
+          cp templates-index.yaml/app-silvestrini.index.yaml index.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add index.yaml
