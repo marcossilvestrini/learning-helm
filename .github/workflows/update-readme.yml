@@ -1,5 +1,5 @@
 name: Update README
-on:  
+on:
   workflow_run:
     workflows: ["Update index.yaml"]
     types:
@@ -22,7 +22,7 @@ jobs:
       - name: Get previous chart version
         id: previous-chart-version
         run: |
-          previous_version=$(grep -oP 'version:\s*\K\d+\.\d+\.\d+' charts/app-silvestrini/README.md)
+          previous_version=$(grep -oP 'version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' charts/app-silvestrini/README.md)
           echo "::set-output name=previous_chart_version::$previous_version"
 
       - name: Compare chart versions
