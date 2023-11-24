@@ -1,4 +1,5 @@
 name: Update README
+
 on:
   workflow_run:
     workflows: ["Deploy to gh-pages", "Update index.yaml"]
@@ -6,7 +7,7 @@ on:
       - completed
 
 jobs:
-  update-readme:
+  update-index:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,29 +20,13 @@ jobs:
           current_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
           echo "::set-output name=current_chart_version::$current_version"
 
-      - name: Get previous chart version
-        id: previous-chart-version
-        run: |
-          previous_version=$(grep -oP 'version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' charts/app-silvestrini/README.md)
-          echo "::set-output name=previous_chart_version::$previous_version"
-
-      - name: Compare chart versions
-        id: compare-versions
-        run: |
-          current_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          previous_version="${{ steps.previous-chart-version.outputs.previous_chart_version }}"
-          if [ "$current_version" != "$previous_version" ]; then
-            echo "::set-output name=chart_version_changed::true"
-          else
-            echo "::set-output name=chart_version_changed::false"
-          fi
-
       - name: Update README
-        if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/version:\s*$previous_version/version: $chart_version/" charts/app-silvestrini/README.md
+          sed -i "s/CHART_VERSION/$chart_version/g" templates-readme.md/app-silvestrini.md
+          cp templates-readme.md/app-silvestrini.md charts/app-silvestrini/README.md
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git commit -am "Update chart version in README"
+          git add charts/app-silvestrini/README.md templates-readme.md/app-silvestrini.md  # Adicionando os arquivos às mudanças do Git
+          git commit -m "Update index.yaml with chart version"
           git push origin main
