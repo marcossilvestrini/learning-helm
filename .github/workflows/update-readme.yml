@@ -1,5 +1,4 @@
 name: Update README
-
 on:
   workflow_run:
     workflows: ["Update index.yaml"]
