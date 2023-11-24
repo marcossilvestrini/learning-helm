@@ -1,6 +1,8 @@
 name: Release Charts
-
 on:
+  push:
+    paths:
+      - 'charts/app-silvestrini/*'
   workflow_run:
     workflows: ["Deploy to gh-pages"]
     types:
@@ -8,8 +10,6 @@ on:
 
 jobs:
   release:
-    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
-    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -25,11 +25,23 @@ jobs:
           git config user.email "marcos.silvestrini@gmail.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v3      
-        env:          
+        uses: azure/setup-helm@v3
+        env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Check for changes in charts
+        id: check-changes
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '^charts/app-silvestrini/'; then
+            echo "Changes detected in charts/app-silvestrini/*"
+            echo "::set-output name=changes::true"
+          else
+            echo "No changes in charts/app-silvestrini/*"
+            echo "::set-output name=changes::false"
+          fi
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
-        env:                    
+        env:
           CR_TOKEN: ${{ secrets.PAT }}
+        if: steps.check-changes.outputs.changes == 'true'

@@ -2,7 +2,7 @@ name: Update index.yaml
 
 on:
   workflow_run:
-    workflows: ["Release Charts", "pages build and deployment"]
+    workflows: ["Release Charts"]
     types:
       - completed
 
