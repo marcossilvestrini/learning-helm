@@ -2,7 +2,7 @@ name: Update index.yaml
 
 on:
   workflow_run:
-    workflows: ["Release Charts"]
+    workflows: ["Deploy to gh-pages", "Release Charts"]
     types:
       - completed
 # on:
