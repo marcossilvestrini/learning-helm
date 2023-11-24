@@ -1,5 +1,5 @@
 name: Update README
-on:
+on:  
   workflow_run:
     workflows: ["Update index.yaml"]
     types:
