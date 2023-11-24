@@ -1,13 +1,13 @@
 name: Release Charts
-# on:  
-#   workflow_run:
-#     workflows: ["Deploy to gh-pages"]
-#     types:
-#       - completed
-on:
-  push:
-    paths:
-      - 'charts/app-silvestrini/*'
+on:  
+  workflow_run:
+    workflows: ["Deploy to gh-pages"]
+    types:
+      - completed
+# on:
+#   push:
+#     paths:
+#       - 'charts/app-silvestrini/*'
 
 jobs:
   release:
