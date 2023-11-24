@@ -1,10 +1,14 @@
 name: Update index.yaml
 
+# on:
+#   workflow_run:
+#     workflows: ["Release Charts"]
+#     types:
+#       - completed
 on:
-  workflow_run:
-    workflows: ["Release Charts"]
-    types:
-      - completed
+  push:
+    paths:
+      - 'charts/app-silvestrini/*'
 
 jobs:
   update-index:
@@ -20,32 +24,13 @@ jobs:
           current_version=$(yq eval '.version' charts/app-silvestrini/Chart.yaml)
           echo "::set-output name=current_chart_version::$current_version"
 
-      - name: Get previous chart version from index.yaml
-        id: previous-chart-version
-        run: |
-          previous_version=$(yq eval '.entries.app-silvestrini[0].version' index.yaml)
-          echo "::set-output name=previous_chart_version::$previous_version"
-
-      - name: Compare chart versions
-        id: compare-versions
-        run: |
-          current_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          previous_version="${{ steps.previous-chart-version.outputs.previous_chart_version }}"
-          if [ "$current_version" != "$previous_version" ]; then
-            echo "::set-output name=chart_version_changed::true"
-          else
-            echo "::set-output name=chart_version_changed::false"
-          fi
-
       - name: Update index.yaml
-        if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
-          previous_version="${{ steps.previous-chart-version.outputs.previous_chart_version }}"
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/version: $previous_version/version: $chart_version/" index.yaml
-          sed -i "s/app-silvestrini-$previous_version/app-silvestrini-$chart_version/" index.yaml
-          sed -i "s/app-silvestrini-$chart_version/app-silvestrini-$previous_version/" index.yaml
+          sed -i "s/CHART_VERSION/$chart_version/g" templates-index.yaml/template-app-silvestrini.index.yaml
+          cp templates-index.yaml/template-app-silvestrini.index.yaml index.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git commit -am "Update chart version in index.yaml"
+          git add index.yaml
+          git commit -m "Update index.yaml with chart version"
           git push origin main
