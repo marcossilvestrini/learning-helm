@@ -4,6 +4,7 @@ on:
     workflows: ["Update index.yaml"]
     types:
       - completed
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
       - name: Get previous chart version
         id: previous-chart-version
         run: |
-          previous_version=$(grep -oP 'version: \K.*' charts/app-silvestrini/README.md)
+          previous_version=$(grep -oP 'version:\s*\K[^ ]+' charts/app-silvestrini/README.md)
           echo "::set-output name=previous_chart_version::$previous_version"
 
       - name: Compare chart versions
@@ -39,7 +40,7 @@ jobs:
         if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/version: .*/version: $chart_version/" charts/app-silvestrini/README.md
+          sed -i "s/version:\s*$previous_version/version: $chart_version/" charts/app-silvestrini/README.md
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git commit -am "Update chart version in README"
