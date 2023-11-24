@@ -2,7 +2,7 @@ name: Update index.yaml
 
 on:
   workflow_run:
-    workflows: ["Release Charts"]
+    workflows: ["Release Charts", "pages build and deployment"]
     types:
       - completed
 
@@ -40,6 +40,7 @@ jobs:
       - name: Update index.yaml
         if: steps.compare-versions.outputs.chart_version_changed == 'true'
         run: |
+          previous_version="${{ steps.previous-chart-version.outputs.previous_chart_version }}"
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           sed -i "s/version: $previous_version/version: $chart_version/" index.yaml
           sed -i "s/app-silvestrini-$previous_version/app-silvestrini-$chart_version/" index.yaml

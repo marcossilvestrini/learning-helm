@@ -1,8 +1,10 @@
 name: Generate HTML
 
-on: [push, pull_request]
-
-
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 jobs:
   generate_html:
     name: generate-html
@@ -49,6 +51,7 @@ jobs:
       #     find dist/ 
       
       - name: Commit and Push PDF Book
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           #sudo chmod 777 dist/learning-helm.pdf &&
           sudo mv dist/learning-helm.pdf . &&                    
