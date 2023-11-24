@@ -3,10 +3,10 @@ on:
   push:
     paths:
       - 'charts/app-silvestrini/*'
-  # workflow_run:
-  #   workflows: ["Deploy to gh-pages"]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Deploy to gh-pages"]
+    types:
+      - completed
 
 jobs:
   release:

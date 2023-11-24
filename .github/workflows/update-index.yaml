@@ -44,6 +44,7 @@ jobs:
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           sed -i "s/version: $previous_version/version: $chart_version/" index.yaml
           sed -i "s/app-silvestrini-$previous_version/app-silvestrini-$chart_version/" index.yaml
+          sed -i "s/app-silvestrini-$chart_version/app-silvestrini-$previous_version/" index.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git commit -am "Update chart version in index.yaml"
