@@ -5,10 +5,6 @@ on:
     workflows: ["Deploy to gh-pages", "Release Charts"]
     types:
       - completed
-# on:
-#   push:
-#     paths:
-#       - 'charts/app-silvestrini/*'
 
 jobs:
   update-index:
@@ -31,6 +27,6 @@ jobs:
           cp templates-index.yaml/app-silvestrini-index.yaml index.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add index.yaml
+          git add index.yaml templates-index.yaml/app-silvestrini-index.yaml  # Adicionando os arquivos às mudanças do Git
           git commit -m "Update index.yaml with chart version"
           git push origin main
