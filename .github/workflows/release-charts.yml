@@ -1,9 +1,4 @@
 name: Release Charts
-# on:  
-#   workflow_run:
-#     workflows: ["Deploy to gh-pages"]
-#     types:
-#       - completed
 on:
   push:
     branches:
@@ -33,5 +28,4 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
-          CR_TOKEN: ${{ secrets.PAT }}
-        if: steps.check-changes.outputs.changes == 'true'
+          CR_TOKEN: ${{ secrets.PAT }}        

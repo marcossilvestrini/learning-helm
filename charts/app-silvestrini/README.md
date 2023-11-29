@@ -1,5 +1,10 @@
 # Helm Chart for app-silvestrini
 
+## Pre Required
+
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
+
 ## Description
 
 This is a Helm chart for Kubernetes that allows you to deploy the "app-silvestrini" application to your Kubernetes cluster.
