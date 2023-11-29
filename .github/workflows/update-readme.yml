@@ -1,10 +1,12 @@
-name: Update README
+name: Update Readme
 
 on:
-  workflow_run:
-    workflows: ["Deploy to gh-pages", "Update index.yaml"]
-    types:
-      - completed
+  push:
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
+  pull_request:
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
 
 jobs:
   update-readme:
@@ -13,6 +15,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main
 
       - name: Get current chart version
         id: current-chart-version
@@ -25,15 +33,10 @@ jobs:
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           cp templates-readme.md/app-silvestrini.md charts/app-silvestrini/README.md
           sed -i "s/CHART_VERSION/$chart_version/g" charts/app-silvestrini/README.md
-          
-          
-          # Verificar se há mudanças
+
           if git diff --quiet; then
             echo "Nenhuma mudança para commitar"
           else
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git pull --rebase origin main  # Fazendo pull antes do push
             git add charts/app-silvestrini/README.md
             git commit -m "Update README with chart version $chart_version"
             git push origin main

@@ -1,18 +1,25 @@
-name: Update index.yaml
-
+name: Update Index
 on:
-  workflow_run:
-    workflows: ["Deploy to gh-pages", "Release Charts"]
-    types:
-      - completed
+  push:
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
+  pull_request:
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
 
 jobs:
-  update-index:
+  update-readme:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main
 
       - name: Get current chart version
         id: current-chart-version
@@ -24,15 +31,11 @@ jobs:
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           cp templates-index.yaml/app-silvestrini-index.yaml index.yaml
-          sed -i "s/CHART_VERSION/$chart_version/g" index.yaml          
-          
-          # Verificar se há mudanças
+          sed -i "s/CHART_VERSION/$chart_version/g" index.yaml
+
           if git diff --quiet; then
             echo "Nenhuma mudança para commitar"
           else
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git pull --rebase origin main  # Fazendo pull antes do push
             git add index.yaml
             git commit -m "Update index.yaml with chart version $chart_version"
             git push origin main
