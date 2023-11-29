@@ -7,7 +7,7 @@ on:
       - completed
 
 jobs:
-  update-index:
+  update-readme:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,14 @@ jobs:
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
           sed -i "s/CHART_VERSION/$chart_version/g" templates-readme.md/app-silvestrini.md
           cp templates-readme.md/app-silvestrini.md charts/app-silvestrini/README.md
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add charts/app-silvestrini/README.md templates-readme.md/app-silvestrini.md  # Adicionando os arquivos às mudanças do Git
-          git commit -m "Update index.yaml with chart version"
-          git push origin main
+          
+          # Verificar se há mudanças
+          if git diff --quiet; then
+            echo "Nenhuma mudança para commitar"
+          else
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git add charts/app-silvestrini/README.md templates-readme.md/app-silvestrini.md
+            git commit -m "Update README with chart version $chart_version"
+            git push origin main
+          fi
