@@ -23,8 +23,8 @@ jobs:
       - name: Update index.yaml
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/CHART_VERSION/$chart_version/g" templates-index.yaml/app-silvestrini-index.yaml
           cp templates-index.yaml/app-silvestrini-index.yaml index.yaml
+          sed -i "s/CHART_VERSION/$chart_version/g" index.yaml          
           
           # Verificar se há mudanças
           if git diff --quiet; then
@@ -32,7 +32,7 @@ jobs:
           else
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
-            git add index.yaml templates-index.yaml/app-silvestrini-index.yaml
+            git add index.yaml
             git commit -m "Update index.yaml with chart version $chart_version"
             git push origin main
           fi

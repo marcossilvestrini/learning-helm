@@ -23,8 +23,9 @@ jobs:
       - name: Update README
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
-          sed -i "s/CHART_VERSION/$chart_version/g" templates-readme.md/app-silvestrini.md
           cp templates-readme.md/app-silvestrini.md charts/app-silvestrini/README.md
+          sed -i "s/CHART_VERSION/$chart_version/g" charts/app-silvestrini/README.md
+          
           
           # Verificar se há mudanças
           if git diff --quiet; then
@@ -32,7 +33,7 @@ jobs:
           else
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
-            git add charts/app-silvestrini/README.md templates-readme.md/app-silvestrini.md
+            git add charts/app-silvestrini/README.md
             git commit -m "Update README with chart version $chart_version"
             git push origin main
           fi
