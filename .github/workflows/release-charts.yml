@@ -6,11 +6,8 @@ name: Release Charts
 #       - completed
 on:
   push:
-    paths:
-      - 'charts/app-silvestrini/*'
-  pull_request:
-    paths:
-      - 'charts/app-silvestrini/*'
+    branches:
+      - main
 
 jobs:
   release:
