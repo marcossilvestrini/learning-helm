@@ -30,6 +30,7 @@ jobs:
       - name: Update index.yaml
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
+          echo "Chart version: {{ chart_version }}"
           cp templates-index.yaml/app-silvestrini-index.yaml index.yaml
           sed -i "s/CHART_VERSION/$chart_version/g" index.yaml
 

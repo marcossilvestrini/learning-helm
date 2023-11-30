@@ -44,8 +44,7 @@ jobs:
         with:
           htmlPath: 'index.html'
           pdfName: 'learning-helm'
-      
-      
+            
       # - name: Check PDF Output
       #   run: |
       #     find dist/ 
@@ -53,13 +52,13 @@ jobs:
       - name: Commit and Push PDF Book
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          #sudo chmod 777 dist/learning-helm.pdf &&
-          sudo mv dist/learning-helm.pdf . &&                    
-          /usr/bin/git config --global user.email "marcos.silvestrini@gmail.com" &&
-          /usr/bin/git config --global user.name "marcossilvestrini" &&
-          /usr/bin/git add learning-helm.pdf index.html &&
-          /usr/bin/git commit -m "Deploy PFD and HTML files" &&
-          /usr/bin/git push origin main
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git pull --rebase origin main
+          sudo mv dist/learning-helm.pdf . &&                              
+          git add learning-helm.pdf index.html &&
+          git commit -m "Deploy PFD and HTML files" &&
+          git push origin main
       
       - name: Upload artifacts        
         uses: actions/upload-artifact@v3

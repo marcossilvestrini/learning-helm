@@ -31,6 +31,7 @@ jobs:
       - name: Update README
         run: |
           chart_version="${{ steps.current-chart-version.outputs.current_chart_version }}"
+          echo "Chart version: {{ chart_version }}"
           cp templates-readme.md/app-silvestrini.md charts/app-silvestrini/README.md
           sed -i "s/CHART_VERSION/$chart_version/g" charts/app-silvestrini/README.md
 
