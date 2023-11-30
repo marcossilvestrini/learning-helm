@@ -3,6 +3,7 @@
 [![Generate HTML](https://github.com/marcossilvestrini/learning-helm/actions/workflows/generate-html.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/generate-html.yml)
 [![pages-build-deployment](https://github.com/marcossilvestrini/learning-helm/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/pages/pages-build-deployment)
 [![Release Charts](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/release-charts.yml)
+[![Update Index](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-index.yaml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-index.yaml)
 [![Update README](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-readme.yml/badge.svg)](https://github.com/marcossilvestrini/learning-helm/actions/workflows/update-readme.yml)
 
 
