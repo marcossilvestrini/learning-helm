@@ -9,6 +9,6 @@ entries:
     name: app-silvestrini
     type: application
     urls:
-    - https://github.com/marcossilvestrini/learning-helm/releases/download/app-silvestrini-1.1.0/app-silvestrini-1.1.0.tgz
-    version: 1.1.0
+    - https://github.com/marcossilvestrini/learning-helm/releases/download/app-silvestrini-1.1.1/app-silvestrini-1.1.1.tgz
+    version: 1.1.1
 generated: "2023-11-23T00:03:30.8464913-03:00"
