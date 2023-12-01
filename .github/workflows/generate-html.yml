@@ -1,10 +1,11 @@
-name: Generate HTML
+name: Generate HTML and PDF
 
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
 jobs:
   generate_html:
     name: generate-html
@@ -28,16 +29,20 @@ jobs:
           github-corners: https://github.com/marcossilvestrini/learning-helm
           favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>
       
-      # - name: Debug Converts Markdown to HTML
-      #   run: ls -lt 
-      
-      # This actions contains errors in date: 22/11/2023 21:12:32
-      # - name: Convert HTML to PDF
-      #   uses: fifsky/html-to-pdf-action@master
-      #   with:
-      #     htmlFile: ./index.html
-      #     outputFile: ./learning-helm.pdf          
-      #     pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'     
+      - name: Commit or Stash Changes
+        run: |
+          git diff-index --quiet HEAD || git stash
+          
+      - name: Pull and Rebase
+        run: |
+          git pull --rebase origin main
+
+      - name: Apply Changes
+        run: |
+          git stash pop || true  # Restaura as alterações não confirmadas, se houver
+          git add .   # Adiciona todas as alterações ao stage
+          git commit -m "Commit das alterações não confirmadas"  # Faz um novo commit com as alterações
+          git push origin main  # Realiza o push das alterações
 
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
@@ -45,28 +50,8 @@ jobs:
           htmlPath: 'index.html'
           pdfName: 'learning-helm'
             
-      # - name: Check PDF Output
-      #   run: |
-      #     find dist/ 
-      
-      - name: Commit and Push PDF Book
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git pull --rebase origin main
-          sudo mv dist/learning-helm.pdf . &&                              
-          git add learning-helm.pdf index.html &&
-          git commit -m "Deploy PFD and HTML files" &&
-          git push origin main
-      
       - name: Upload artifacts        
         uses: actions/upload-artifact@v3
         with:
           name: learning-helm
           path: ./learning-helm.pdf
-
-      # - name: Download Artefacts
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: right-resume
