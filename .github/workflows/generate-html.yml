@@ -16,6 +16,11 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -28,29 +33,29 @@ jobs:
           output: index.html
           github-corners: https://github.com/marcossilvestrini/learning-helm
           favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>
-      
+
       - name: Commit or Stash Changes
         run: |
           git diff-index --quiet HEAD || git stash
-          
+
       - name: Pull and Rebase
         run: |
           git pull --rebase origin main
 
       - name: Apply Changes
         run: |
-          git stash pop || true  # Restaura as alterações não confirmadas, se houver
-          git add .   # Adiciona todas as alterações ao stage
-          git commit -m "Commit das alterações não confirmadas"  # Faz um novo commit com as alterações
-          git push origin main  # Realiza o push das alterações
+          git stash pop || true
+          git add .
+          git commit -m "Commit das alterações não confirmadas"
+          git push origin main
 
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
           htmlPath: 'index.html'
           pdfName: 'learning-helm'
-            
-      - name: Upload artifacts        
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: learning-helm
