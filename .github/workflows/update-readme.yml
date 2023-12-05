@@ -39,6 +39,6 @@ jobs:
             echo "Nenhuma mudança para commitar"
           else
             git add charts/app-silvestrini/README.md
-            git commit -m "Update README with chart version $chart_version"
-            git push origin main
+            git commit -m "Update README with chart version $chart_version"            
+            git push -f origin main
           fi
