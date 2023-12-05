@@ -43,13 +43,14 @@ jobs:
       - name: Pull and Rebase
         run: |
           git pull --rebase origin main
-
+      
       - name: Apply Changes
         run: |
-          git stash pop || true
-          git add .
-          git commit -m "Commit das alterações não confirmadas"          
-          git push -f origin main
+          if [[ -n $(git status -s) ]]; then
+            git add .
+            git commit -m "Commit das alterações não confirmadas"          
+            git push -f origin main
+          fi
 
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
