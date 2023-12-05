@@ -46,8 +46,8 @@ jobs:
         run: |
           git stash pop || true
           git add .
-          git commit -m "Commit das alterações não confirmadas"
-          git push origin main
+          git commit -m "Commit das alterações não confirmadas"          
+          git push -f origin main
 
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0

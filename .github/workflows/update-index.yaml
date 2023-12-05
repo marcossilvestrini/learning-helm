@@ -39,5 +39,5 @@ jobs:
           else
             git add index.yaml
             git commit -m "Update index.yaml with chart version $chart_version"
-            git push origin main
+            git push -f origin main
           fi
