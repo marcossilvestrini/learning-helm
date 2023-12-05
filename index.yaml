@@ -1,14 +1,14 @@
 apiVersion: v1
 entries:
   app-silvestrini:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2023-11-23T00:03:30.8469914-03:00"
-    description: A Helm chart for Kubernetes
-    digest: d83f35ccb1b5a88531335ca4084b5612d660544eb4c54b58e917658ff9221d52
-    name: app-silvestrini
-    type: application
-    urls:
-    - https://github.com/marcossilvestrini/learning-helm/releases/download/app-silvestrini-1.0.0/app-silvestrini-1.0.0.tgz
-    version: 1.0.0
-generated: "2023-11-23T00:03:30.8464913-03:00"
+    - apiVersion: v2
+      appVersion: 1.16.0
+      created: '2023-11-23T00:03:30.8469914-03:00'
+      description: A Helm chart for Kubernetes
+      digest: d83f35ccb1b5a88531335ca4084b5612d660544eb4c54b58e917658ff9221d52
+      name: app-silvestrini
+      type: application
+      urls:
+        - https://github.com/marcossilvestrini/learning-helm/releases/download/app-silvestrini-1.0.0/app-silvestrini-1.0.0.tgz
+      version: 1.0.0
+generated: '2023-11-23T00:03:30.8464913-03:00'
