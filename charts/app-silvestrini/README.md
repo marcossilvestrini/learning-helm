@@ -6,7 +6,7 @@ This is a Helm chart for Kubernetes that allows you to deploy the "app-silvestri
 
 ## Versioning
 
-version: 1.1.0
+version: 1.1.1
 
 The application version deployed by this chart is "1.16.0". You should update the application version as needed.
 
