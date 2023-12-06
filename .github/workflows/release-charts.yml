@@ -1,8 +1,15 @@
 name: Release Charts
+# on:
+#   push:
+#     branches:
+#       - main
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
+  pull_request:
+    paths:
+      - 'charts/app-silvestrini/Chart.yaml'
 
 jobs:
   release:
