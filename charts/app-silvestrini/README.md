@@ -20,8 +20,8 @@ To install this chart on your Kubernetes cluster, you can use the following comm
 
 ```bash
 
-helm repo add my-repo https://marcossilvestrini.github.io/learning-helm/
-helm install my-release my-repo/app-silvestrini
+helm repo add silvestrini https://marcossilvestrini.github.io/learning-helm/
+helm upgrade --install app-silvestrini silvestrini/app-silvestrini
 ```
 
 ## How to Uninstall the Chart
@@ -29,5 +29,5 @@ helm install my-release my-repo/app-silvestrini
 If you want to uninstall the chart, you can use the following command:
 
 ```bash
-helm uninstall my-release
+helm uninstall app-silvestrini
 ```
