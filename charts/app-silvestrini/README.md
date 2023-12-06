@@ -6,7 +6,7 @@ This is a Helm chart for Kubernetes that allows you to deploy the "app-silvestri
 
 ## Versioning
 
-version: 1.1.1
+version: 1.1.2
 
 The application version deployed by this chart is "1.16.0". You should update the application version as needed.
 
@@ -20,8 +20,8 @@ To install this chart on your Kubernetes cluster, you can use the following comm
 
 ```bash
 
-helm repo add silvestrini https://marcossilvestrini.github.io/learning-helm/
-helm upgrade --install app-silvestrini silvestrini/app-silvestrini
+helm repo add my-repo https://marcossilvestrini.github.io/learning-helm/
+helm install my-release my-repo/app-silvestrini
 ```
 
 ## How to Uninstall the Chart
@@ -29,5 +29,5 @@ helm upgrade --install app-silvestrini silvestrini/app-silvestrini
 If you want to uninstall the chart, you can use the following command:
 
 ```bash
-helm uninstall app-silvestrini
+helm uninstall my-release
 ```
