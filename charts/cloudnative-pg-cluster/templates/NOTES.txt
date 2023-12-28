@@ -1,0 +1,33 @@
+PostgreSQL Chart Information:
+
+1. To connect to the PostgreSQL database, you can use the following command:
+   
+kubectl run -it --rm --image=ghcr.io/cloudnative-pg/postgresql:16.1 postgresql-client -- /bin/bash
+
+psql -h <POSTGRES_HOST> -U <POSTGRES_USER> -d <POSTGRES_DB>
+
+Replace `<POSTGRES_HOST>`, `<POSTGRES_USER>`, and `<POSTGRES_DB>` with the appropriate values.
+
+2. To check the status of the PostgreSQL cluster, you can run:
+
+kubectl get postgresqlcluster -n <NAMESPACE>
+
+Replace `<NAMESPACE>` with the namespace where you installed the chart.
+
+3. For more information on configuring and customizing this PostgreSQL deployment, please refer to the values.yaml file.
+
+4. To install this PostgreSQL Chart, use the following command:
+
+helm install my-postgresql-chart charts/postgresql-chart
+
+Replace `my-postgresql-chart` with the desired release name and `./postgresql-chart` with the path to your chart directory.
+
+5. To uninstall this PostgreSQL Chart, use the following command:
+
+helm uninstall my-postgresql-chart
+
+Replace `my-postgresql-chart` with the release name used during installation.
+
+For any issues or questions, please consult the documentation or contact support.
+
+Thank you for using the PostgreSQL Helm Chart!

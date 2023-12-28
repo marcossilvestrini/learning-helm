@@ -1,0 +1,61 @@
+# templates/postgresql.yaml
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Release.Name }}-postgresql
+spec:
+  description: {{ .Values.postgresql.description | quote }}
+  imageName: {{ .Values.postgresql.imageName | quote }}
+  instances: {{ .Values.postgresql.instances }}
+  startDelay: {{ .Values.postgresql.startDelay }}
+  stopDelay: {{ .Values.postgresql.stopDelay }}
+  primaryUpdateStrategy: {{ .Values.postgresql.primaryUpdateStrategy | quote }}
+
+  postgresql:
+    parameters:
+      shared_buffers: {{ .Values.postgresql.parameters.shared_buffers | quote }}
+      pg_stat_statements.max: {{ .Values.postgresql.parameters.pg_stat_statements_max | quote }}
+      pg_stat_statements.track: {{ .Values.postgresql.parameters.pg_stat_statements_track }}
+      auto_explain.log_min_duration: {{ .Values.postgresql.parameters.auto_explain_log_min_duration | quote }}
+    pg_hba:
+      - host all all 0.0.0.0/0 md5
+  
+  bootstrap:
+    initdb:
+      database: {{ .Values.bootstrap.initdb.database | quote }}
+      owner: {{ .Values.bootstrap.initdb.owner | quote }}
+      secret:
+        name: {{ .Values.bootstrap.initdb.secret.name | quote }}
+  
+  enableSuperuserAccess: {{ .Values.enableSuperuserAccess }}
+  superuserSecret:    
+    name: {{ .Values.superuserSecret.name | quote }}
+
+  storage:        
+    size: {{ .Values.storage.size }}
+    pvcTemplate:        
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.storage.pvcTemplate.resources.requests.storage }}
+      storageClassName: {{ .Values.storage.pvcTemplate.storageClassName }}
+      volumeMode: {{ .Values.storage.pvcTemplate.volumeMode }}
+  monitoring:
+    enablePodMonitor: {{ .Values.monitoring.enablePodMonitor }}
+
+  resources:
+    requests:
+      memory: {{ .Values.resources.requests.memory | quote }}
+      cpu: {{ .Values.resources.requests.cpu | quote }}
+    limits:
+      memory: {{ .Values.resources.limits.memory | quote }}
+      cpu: {{ .Values.resources.limits.cpu | quote }}
+  
+  affinity:
+    enablePodAntiAffinity: {{ .Values.affinity.enablePodAntiAffinity }}
+    topologyKey: {{ .Values.affinity.topologyKey | quote }}
+   
+  nodeMaintenanceWindow:
+    inProgress: {{ .Values.nodeMaintenanceWindow.inProgress }}
+    reusePVC: {{ .Values.nodeMaintenanceWindow.reusePVC }}
